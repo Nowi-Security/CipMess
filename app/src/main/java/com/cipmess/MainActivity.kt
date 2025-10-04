@@ -22,6 +22,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +47,6 @@ import javax.crypto.spec.GCMParameterSpec
 class MainActivity : AppCompatActivity() {
 
     private var edit_status = true
-    private lateinit var corru: Job
     private lateinit var load_dialog: Dialog
     @SuppressLint("MissingInflatedId")
     fun load (info_text: String) {
@@ -79,6 +79,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
 
         input_text = findViewById<EditText>(R.id.input_text)
         input_visi = findViewById<TextInputLayout>(R.id.input_visi)
@@ -188,17 +190,16 @@ class MainActivity : AppCompatActivity() {
 
                             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                                 super.onAuthenticationSucceeded(result)
-
+                                dialog_export.dismiss()
                                 load("Exporting your message")
-                                corru = lifecycleScope.launch(Dispatchers.IO) {
+                                lifecycleScope.launch(Dispatchers.IO) {
                                     export(applicationContext, input_pass.text.toString(), file_name.text.toString(), input_text.text.toString())
 
                                     withContext(Dispatchers.Main) {
-                                        dialog_export.dismiss()
                                         input_text.setText("")
                                         load_dialog.dismiss()
                                     }
-                                    corru.cancel()
+                                    cancel()
                                 }
                             }
 
@@ -281,18 +282,18 @@ class MainActivity : AppCompatActivity() {
 
                     import_butt.setOnClickListener {
 
-                        if (json.has("salt") && json.has("text_test") && json.has("message") && json.has("iv_test") && json.has("iv_test") && json.has("iv")) {
+                        if (json.has("salt") && json.has("pro_array") && json.has("mess_array")) {
 
+                            import_dialog.dismiss()
                             load("Importing the message")
 
-                            corru = lifecycleScope.launch (Dispatchers.IO) {
+                            lifecycleScope.launch (Dispatchers.IO) {
 
                                 try {
                                     val message = import(json, input_pass.text.toString())
 
                                     withContext(Dispatchers.Main) {
                                         load_dialog.dismiss()
-                                        import_dialog.dismiss()
                                         edit_status = false
                                         text_read.visibility = View.VISIBLE
                                         text_scroll.visibility = View.VISIBLE
@@ -309,7 +310,7 @@ class MainActivity : AppCompatActivity() {
                                     withContext(Dispatchers.Main) {
                                         Toast.makeText(applicationContext, "The password is not correct", Toast.LENGTH_SHORT).show()
                                         load_dialog.dismiss()
-                                        corru.cancel()
+                                        cancel()
                                     }
                                 }
                             }
@@ -323,11 +324,6 @@ class MainActivity : AppCompatActivity() {
                     import_dialog.setContentView(import_view)
                     import_dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                     import_dialog.show()
-
-                    corru = lifecycleScope.launch(Dispatchers.IO) {
-
-
-                    }
                 }
             }
         }

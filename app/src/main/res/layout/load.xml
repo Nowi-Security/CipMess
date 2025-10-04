@@ -12,7 +12,7 @@
         app:layout_constraintBottom_toTopOf="@id/load"
         android:layout_marginBottom="20dp"
         android:background="@drawable/border_25"
-        android:backgroundTint="@color/b_black"
+        android:backgroundTint="@color/black"
         >
 
         <TextView

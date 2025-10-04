@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/b_black"
+    android:background="@color/black"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,7 +40,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border_25"
-                android:backgroundTint="@color/b_black"
+                android:backgroundTint="@color/black"
                 />
 
             <com.google.android.material.imageview.ShapeableImageView

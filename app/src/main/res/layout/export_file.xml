@@ -9,7 +9,7 @@
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:background="@drawable/border_25"
-        android:backgroundTint="@color/b_black"
+        android:backgroundTint="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/back_pass"
                 android:layout_marginTop="5dp"
-                app:trackColor="@color/b_black"
+                app:trackColor="@color/black"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

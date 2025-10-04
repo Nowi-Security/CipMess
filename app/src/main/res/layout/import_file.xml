@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/border_25"
-        android:backgroundTint="@color/b_black"
+        android:backgroundTint="@color/black"
         >
 
         <com.google.android.material.textfield.TextInputLayout
@@ -51,7 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="5dp"
-            app:trackColor="@color/b_black"
+            app:trackColor="@color/black"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
